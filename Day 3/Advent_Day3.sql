@@ -105,32 +105,6 @@ WHILE @DoPosition<len(@input)BEGIN
     END
 END;
 
---WHILE @DoPosition < len(@input)-7
---	BEGIN
---		/*Search For Next DO */
---		SET @DoPosition = (SELECT CHARINDEX('do()',@input, @DoPosition))
-
---		--IF(@Pos = 0)
---		--	BEGIN
---		--		SET @POS = len(@input)-7
---		--	END
-
---END
-
---SET @pos = 0
-
---	WHILE @pos < len(@input)-7
---		BEGIN
---			/*Search For Next DON'T */
---			SET @pos = (SELECT CHARINDEX('dont()',@input, @pos))
---			INSERT INTO #AdventDay3_Do ( doid, position, do)
---			VALUES ( @doid, @pos, 0)
---			IF(@Pos = 0)
---				BEGIN
---				SET @POS = len(@input)-7
---				END
-
---		END;
 DECLARE @CheckDoStart INT
 DECLARE @Position INT
 DECLARE @IsEnable bit
@@ -149,7 +123,7 @@ WHILE @@FETCH_STATUS=0 BEGIN
                    from #AdventDay3_Do
                    WHERE position<@CheckDoStart
                    order by position desc)
-    --PRINT @CheckDoStart
+
     IF(@IsEnable=1)BEGIN
         UPDATE #AdventDay3 SET isenabled=1 WHERE posbegin=@CheckDoStart
     END
